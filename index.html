@@ -36,7 +36,7 @@
         de partir sur un affichage en CSS plutôt que d'utiliser la balise canvas en HTML.
         En effet, le CSS semble plus maitrisé et connu dans le groupe, même s'il reste un outil puissant.
         De plus, étant donné un affichage assez simple, le CSS était bien plus adapté que la balise canvas
-        qui nécessite, de manipuler des objets graphiques.
+        qui nécessite de manipuler des objets graphiques.
         Enfin, l'utilisation de la balise canvas aurait necessité une phase d'apprentissage supplémentaire non négligeable,
         et dans le cadre du projet, cette phase n'était pas la bienvenue.
       </div>
@@ -114,7 +114,11 @@
         Design
       </h2>
       <div>
-        Pour faire le design du site, nous avons 
+        Pour faire le design du site, nous nous sommes basé sur un thème qui s'adapte au jeu d'Echecs. L'utilisation de <a href = "https://loading.io/css/">ce site</a> nous a permis d'importer une petite animation pour notre page d'attente.
+        <br>
+        Par la suite, nous avons ajoutés une petite bannière reprise sur le site <a href = "https://codepen.io/veronicadev/pen/JLoaVg">Codepen.io</a>.
+        Ce qui nous a mené à comprendre le fonctionnement d'images vectorielles. Nous nous sommes donc interressé plus en détails sur 
+        <a href = "https://developer.mozilla.org/fr/docs/Apprendre/HTML/Comment/Ajouter_des_images_vectorielles_%C3%A0_une_page_web">cette page</a>.
       </div>
       <h2 id="Failles">
         Sécurité du site.
@@ -126,13 +130,34 @@
         <div class="recherches">
           Une des failles les plus répandues est la faille XSS, qui permet d'injecter du code HTML ou JavaScript dans un site.
           Le fait de pouvoir injecter du code à de nombreuses conséquences, comme le fait de contrôler l'affichage du site ou de récupérer des informations confidentielles.
-          Afin de s'en protéger, une solution est de transformer les caractères spéciaux. 
+          Afin de s'en protéger, une solution est de transformer les caractères spéciaux. Donc une solution posssible, trouvé sur <a href="https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript">StackOverflow</a>, est d'utiliser une fonction de remplacement de caractères directement dans l'adresse.
+          Mais l'injection de code a été testée aux niveaux des formulaires, et l'utilisation des expressions régulières comble ce problème en restrignant l'accès à ces caractères.
 
         </div>
-        https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript<br>
-        https://stackoverflow.com/questions/31323416/how-to-does-the-token-prevent-csrf-attack<br>
-        BAN IP ? fail2ban<br>
-        https://security.stackexchange.com/questions/36958/is-it-safe-to-store-password-in-html5-sessionstorage<br>
+        
+        <h3>
+          Injections SQL
+        </h3>
+        <div>
+          Les injections SQL permettent de récuperer des données en modifiant directement des requêtes concaténées dans le code, ca peut passer par de la mise en commentaire et de l'injection de condition toujours vraie tels que "1=1".
+          Afin de se proteger de ses injections, il est important d'éviter les requêtes concaténées et de passer par des requêtes préparées avec gestion d'arguments, potentiellement évalués en amont.
+          SQLite 3 permet de faire des requêtes préparées, et cette solution a donc directement été prise en compte.
+        </div>
+        <h3>
+          Sécurité de la session.
+        </h3>
+        Suite à nos recherches sur le sessionStorage(<a href="https://security.stackexchange.com/questions/36958/is-it-safe-to-store-password-in-html5-sessionstorage">ici, par exemple</a>), qui stocke notre mot de passe en chiffré et notre identifiant, et après des expériences, il fut compliqué de supprimer les informations stockées à l'intérieur car
+        nécessaires au maintien d'une session. Une solution trouvée fut de mettre en place un timeout afin de déconnecter l'utilisateur en cas d'inactivité sur le site, fixé à 300 secondes et desactivé lors d'une partie. 
+        <h4>
+          Autres failles.
+        </h4>
+        <div>
+          Il existe beaucoup d'autres possibilités afin de protéger le site de certaines attaques telles que l'attaque CSRF ou l'attaque en force brute. Des solutions existent telles que les tokens générés par un vecteur d'initialisation très grand, et uniques.
+          Et pour se protéger de l'attaque brute, des solutions comme le bannissement d'IP ou un décompte entre les possibiltés de connexion sont possibles, mais non implantées dans le code.
+          Des liens etudiés sont disponibles <a href="https://stackoverflow.com/questions/31323416/how-to-does-the-token-prevent-csrf-attack">ici</a> et <a href="https://www.supinfo.com/articles/single/6397-fail2ban">là</a>
+        </div>
+        
+        <br>
         https://html.spec.whatwg.org/multipage/webstorage.html#sensitivity-of-data<br>
         https://codepen.io/veronicadev/pen/JLoaVg
       </div>
