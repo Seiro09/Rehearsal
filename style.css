@@ -1,0 +1,34 @@
+/* CSS files add styling rules to your content */
+
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 2em;
+}
+
+h1 {
+  font-style: italic;
+  color: black;
+  text-align: center;
+}
+
+.recherches{
+  display:block;
+  text-align: justify;
+  border-width:1px
+  border-color:black
+}
+
+#page{
+  width : 40%;
+  margin : auto;
+  background-color : white;
+  box-shadow: 6px 6px 6px #444;
+  border: 1px black solid;
+  padding-left : 5%;
+  padding-right : 5%;
+  padding-bottom : 2%;
+}
+
+body {
+  background-color : #ddd;
+}

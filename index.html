@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ChessMate</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+  </head>  
+  <body>
+    <div id = "page">
+      <h1>Recherches effectuées</h1>
+
+      <ul>
+        <li><a href="#CSS">CSS/<i>canvas</i> ?</a></li>
+        <li><a href="#Node">Node.js</a></li>
+        <li><a href="#Serveur">Gestion serveur</a></li>
+        <li><a href="#Communication">Communication client/serveur</a></li>
+        <li><a href="#Création">Création compte</a></li>
+        <li><a href="#Session">Gestion Session</a></li>
+        <li><a href="#Interaction">Interaction Base de données</a></li>
+        <li><a href="#Hachage">Hachage</a></li>
+        <li><a href="#Attente">Temps d'attente</a></li>
+        <li><a href="#MotDePasse">Sécurité mot de passe</a></li>
+        <li><a href="#Failles">Sécurité du site</a></li>
+
+      </ul>
+      <h2 id="CSS">CSS/<i>canvas</i></h2>
+      <div class="recherches">
+        Afin de gérer l'affichage du site ainsi que du plateau, et donc du jeu, nous avons décidés
+        de partir sur un affichage en CSS plutôt que d'utiliser la balise canvas en HTML.
+        En effet, le CSS semble plus maitrisé et connu dans le groupe, même s'il reste un outil puissant.
+        De plus, étant donné un affichage assez simple, le CSS était bien plus adapté que la balise canvas
+        qui nécessite, de manipuler des objets graphiques.
+        Enfin, l'utilisation de la balise canvas aurait necessité une phase d'apprentissage supplémentaire non négligeable,
+        et dans le cadre du projet, cette phase n'était pas la bienvenue.
+      </div>
+      <h2 id="Node">Node.js</h2>
+      <div class="recherches">
+        Dans l'avancée de notre site et de notre projet, il nous a été nécessaire de gérer des communications entre serveur et client.
+        Afin de gérer le JavaScript coté serveur, nous avons utilisé Node.js pour plusieurs raisons : tout d'abord, car c'est un outil très utilisé, pour sa rapidité et sa simplicité.
+        C'est également un outil adapté à notre projet, car il permet de créer des applications web réseaux
+        Elle permet l'intégration de modules externes, et leur gestion. Il permet de créer un serveur, d'y faire communiquer des gens qui s'y connectent, et d'executer du code Javascript coté serveur.
+  
+      </div>
+      <h2 id="Serveur">Gestion serveur</h2>
+      <div class="recherches">
+        Node.js étant un langage bas niveau, et nous avons donc décidé de regarder les différents frameworks. 
+        Notre choix s'est porté sur Express.js, qui est un framwork basé sur Node.js et qui permet de gérer les différentes routes, présent sur le <a href="https://openclassrooms.com/fr/courses/1056721-des-applications-ultra-rapides-avec-node-js/1057503-le-framework-express-js">tutoriel suivi</a>,
+        simple d'utilisation, adapté à nos besoins, très complet, puissante, performante, et très répandu, donc plus simple de trouver de la documentation si besoin. 
+      </div>
+      <h2 id="Communication">Communication client/Serveur</h2>
+      <div class="recherches">
+        Afin de faire communiquer notre client avec le serveur, notre première idée fut de nous orienter vers l'architecture AJAX.
+        Cependant, cette architecture ne permet qu'une communication du client vers le serveur, mais pas en sens inverse donc cette piste
+        fut rapidement abandonnée au profit de <i>Socket.io</i>, qui présente deux avantages.
+        Il permet une communication bidirectionnelle entre le client et le serveur, adaptée à notre projet. Ensuite, il a une meilleure bibliothèque d'explications que WebSocket, qui était l'une des solutions envisagées.
+        Socket.io utilise le protocole WebSocket, couplé à un processus de basculement afin de pouvoir utiliser d'autres protocoles si le protocole WebSocket n'est pas disponible,
+        il est multi-plateforme, et gère les reconnexions automatiques en cas de déconnexion.
+        Les deux solutions présentent des avantages et des inconvénients, mais il a été décidé de partir sur Socket.io pour sa simplicité d'utilisation.
+      </div>
+      <h2 id="Création">
+        Création compte
+      </h2>
+      <div class="recherches">
+        Une fois arrivé sur le site, nous sommes redirigés sur une page de connexion, uniquement si nous ne sommes pas connectés.
+        Il est possible de se connecter ou alors de se créer un compte. La connexion nécessite un pseudonyme, renseigné à la création du compte,
+        et le mot de passe associé, verifié par la base de données utilisateur.
+        Pour la création de compte, il faut renseigner un pseudonyme, utilisé pour la connexion, 
+        ainsi qu'un <a href="#MotDePasse">mot de passe</a>.
+        Les pseudonymes doivent respecter une
+        <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Expressions_r%C3%A9guli%C3%A8res">expression régulière</a>, afin de n'autoriser que les chiffres, lettres et certains caractères spéciaux.
+        <br><br>
+        L'expression régulière est également utilisé lors de la recherche d'amis, afin de restreindre à nouveau les différentes entrées utilisateurs.
+      </div>
+      <h2 id="Session">Gestion Session</h2>
+      <div class="recherches">
+        Les sockets présentent un problème au niveau de la connexion : ils se ferment et s'ouvrent à chaque changement de page. 
+        Il y a donc une perte des informations liées à la personne connectée au site. On utilise <a href="https://developer.mozilla.org/fr/docs/Web/API/Window/sessionStorage">window.SessionStorage</a> afin de pallier à ce problème. L'idée est la suivante : on stocke les informations de connexion dans sessionStorage, c'est-à-dire les identifiants de la personne.
+        Et étant donné que les informations sont liées à l'onglet, dès l'ouverture du nouveau socket par la page, on retransmet les informations au serveur avec le socket.
+        Ce qui permettra de savoir si un client est connecté sur l'application, et en informer le serveur.
+      </div>
+      <h2 id="Interaction">Interaction avec la base de données</h2>    
+      <div class="recherches">
+      Avant d'interagir avec la base de données, il a fallu la créer. Et pour cela, deux choix s'offraient à nous : MongoDB et SQLite. Notre choix s'est porté sur <a href="https://github.com/mapbox/node-sqlite3/wiki/API">SQLite</a>, bien plus léger et simple d'utilisation.
+      Et au vu de la nature simple des opérations que nous souhaitions faire au sein de notre projet, il n'était pas nécessaire d'utiliser un gestionnaire de base de données  plus complexe.
+      Pour qu'un client se connecte à la base de données, il transmettra son pseudo et son mot de passe au serveur via le socket, qui interrogera la base de donnée sur la validation des informations de connexion.    </div>
+      <h2 id="Hachage">Hachage</h2>    
+      <div class="recherches">
+      Le problème avec le window.SessionStorage, c'est qu'il stocke les informations telles qu'on lui donne, donc si les informations sont sécurisées au niveau du socket, même en clair, un attaquant peut récuperer les informations directement dans le window.sessionStorage.
+      Pour contrer ça, on a décide d'appliquer une fonction de hachage <a href="https://www.npmjs.com/package/js-sha256">coté serveur</a> et <a href="https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest">côté client</a> et envoyer ses informations dans le window.SessionStorage. Ainsi un attaquant ne pourrait récuperer le mot de passe des utilisateurs.
+      </div>
+      <h2 id="Attente">Temps d'attente</h2>
+      <div class="recherches">
+       Les joueurs peuvent accéder à un salon privé, géré par leurs soins, et également accéder à une salle d'attente. 
+       Cette salle d'attente permet de créer des salons privés à partir de personnes qui souhaitent jouer sans rejoindre ou créer un salon privé.
+       Une fois le niveau renseigné, on recherche un adversaire, et on est envoyés dans la file d'attente.
+       Nous avons ajouté une animation de chargement trouvée sur <a href="https://loading.io/css/">ce site</a>.
+       Enfin, si deux personnes sont du même niveau, elles sont redirigées vers un salon créé par le serveur et le jeu commence.
+      </div>
+      <h2 id="MotDePasse">
+        Sécurité mot de passe
+      </h2>
+      <div class="recherches">
+        Lorsque les utilisateurs créent un compte, une évaluation de la force du mot de passe est mise en place et affichée pour inviter l'utilisateur à entrer un mot de passe suffisamment sécurisé pour neutraliser l'attaque par force brute du mot de passe.
+        Pour cela, <a href="https://css-tricks.com/password-strength-meter/">une librairie</a> permettant d'évaluer la force d'un mot de passe. Elle contient une fonction demandant une chaine de caractère et donne un score entre 0 et 4 correspondant à la force du mot de passe.
+      </div>
+      <h2>
+        Design
+      </h2>
+      <div>
+        Pour faire le design du site, nous avons 
+      </div>
+      <h2 id="Failles">
+        Sécurité du site.
+      </h2>
+      <div class="recherches">
+        A l'aide de différents sites, notamment <a href="https://openclassrooms.com/fr/courses/2091901-protegez-vous-efficacement-contre-les-failles-web/2680162-nayez-jamais-confiance">OpenClassRooms</a> et <a href="http://defeo.lu/aws">defeo.lu</a>, les différentes attaques possibles ont été ciblées ainsi que les
+        différentes possibilités de s'en protéger.
+        <h3>Failles XSS</h3>
+        <div class="recherches">
+          Une des failles les plus répandues est la faille XSS, qui permet d'injecter du code HTML ou JavaScript dans un site.
+          Le fait de pouvoir injecter du code à de nombreuses conséquences, comme le fait de contrôler l'affichage du site ou de récupérer des informations confidentielles.
+          Afin de s'en protéger, une solution est de transformer les caractères spéciaux. 
+
+        </div>
+        https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript<br>
+        https://stackoverflow.com/questions/31323416/how-to-does-the-token-prevent-csrf-attack<br>
+        BAN IP ? fail2ban<br>
+        https://security.stackexchange.com/questions/36958/is-it-safe-to-store-password-in-html5-sessionstorage<br>
+        https://html.spec.whatwg.org/multipage/webstorage.html#sensitivity-of-data<br>
+        https://codepen.io/veronicadev/pen/JLoaVg
+      </div>
+    </div>
+  </body>
+</html>
+ 
